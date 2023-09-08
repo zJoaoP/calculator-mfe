@@ -15,7 +15,7 @@
 			"prefix": "app",
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
+					"builder": "ngx-build-plus:browser",
 					"options": {
 						"outputPath": "dist/calculator-shell",
 						"index": "projects/calculator-shell/src/index.html",
@@ -32,7 +32,9 @@
 						"styles": [
 							"projects/calculator-shell/src/styles.scss"
 						],
-						"scripts": []
+						"scripts": [],
+						"extraWebpackConfig": "projects/calculator-shell/webpack.config.js",
+						"commonChunk": false
 					},
 					"configurations": {
 						"production": {
@@ -48,7 +50,8 @@
 									"maximumError": "4kb"
 								}
 							],
-							"outputHashing": "all"
+							"outputHashing": "all",
+							"extraWebpackConfig": "projects/calculator-shell/webpack.prod.config.js"
 						},
 						"development": {
 							"buildOptimizer": false,
@@ -62,21 +65,28 @@
 					"defaultConfiguration": "production"
 				},
 				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
+					"builder": "ngx-build-plus:dev-server",
 					"configurations": {
 						"production": {
-							"browserTarget": "calculator-shell:build:production"
+							"browserTarget": "calculator-shell:build:production",
+							"extraWebpackConfig": "projects/calculator-shell/webpack.prod.config.js"
 						},
 						"development": {
 							"browserTarget": "calculator-shell:build:development"
 						}
 					},
-					"defaultConfiguration": "development"
+					"defaultConfiguration": "development",
+					"options": {
+						"port": 4000,
+						"publicHost": "http://localhost:4000",
+						"extraWebpackConfig": "projects/calculator-shell/webpack.config.js"
+					}
 				},
 				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"builder": "ngx-build-plus:extract-i18n",
 					"options": {
-						"browserTarget": "calculator-shell:build"
+						"browserTarget": "calculator-shell:build",
+						"extraWebpackConfig": "projects/calculator-shell/webpack.config.js"
 					}
 				},
 				"test": {
