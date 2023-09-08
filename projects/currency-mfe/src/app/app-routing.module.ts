@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './currency/home/home.component';
-
 const routes: Routes = [
   {
-    path: '',
-    component: HomeComponent
+    path: 'currency',
+    loadChildren: () => import('./currency/currency.module').then(m => m.CurrencyModule)
   }
 ];
 
